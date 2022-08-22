@@ -22,29 +22,29 @@ public class CommentController {
 
     @GetMapping
     @Transactional
-    public List<CommentDto> getAllComments(@RequestParam Optional<Long> userId, @RequestParam Optional<Long> postId){
-        List<CommentDto> comments = this.commentService.getAllComments(userId,postId);
+    public List<CommentDto> getAllComments(@RequestParam Optional<Long> userId, @RequestParam Optional<Long> postId) {
+        List<CommentDto> comments = this.commentService.getAllComments(userId, postId);
         return comments;
     }
 
     @PostMapping
-    public CommentDto createComment(@RequestBody CommentDto commentDto){
+    public CommentDto createComment(@RequestBody CommentDto commentDto) {
         CommentDto newPost = this.commentService.createComment(commentDto);
         return commentDto;
     }
-//
-//    @GetMapping("/{postId}")
-//    public PostDto getOnePost(@PathVariable Long postId){
-//         return this.postService.getOnePostById(postId);
-//    }
-//
-//    @PutMapping
-//    public PostDto updateOnePost(@RequestBody PostDto postDto) {
-//        return this.postService.updateOnePost(postDto);
-//    }
-//
-//    @DeleteMapping("/{userId}")
-//    public void deleteOnePostById(@PathVariable Long postId){
-//        this.postService.deleteOnePostById(postId);
-//    }
+
+    @GetMapping("/{commentId}")
+    public CommentDto getOneCommentById(@PathVariable Long commentId) {
+        return this.commentService.getOneCommentById(commentId);
+    }
+
+    @PutMapping
+    public CommentDto updateOneComment(@RequestBody CommentDto commentDto) {
+        return this.commentService.updateOneComment(commentDto);
+    }
+
+    @DeleteMapping("/{commentId}")
+    public void deleteOneCommentById(@PathVariable Long commentId) {
+        this.commentService.deleteOneCommentById(commentId);
+    }
 }

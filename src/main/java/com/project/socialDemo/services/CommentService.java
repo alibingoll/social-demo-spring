@@ -30,15 +30,21 @@ public class CommentService implements ICommentService {
 
     @Override
     public List<CommentDto> getAllComments(Optional<Long> userId, Optional<Long> postId) {
-        List<Comment> comments = commentRepository.findAll();
+        List<Comment> comments;
+        if(userId.isPresent() && postId.isPresent()){
+            comments = commentRepository.findByUserIdAndPostId(userId.get(),postId.get());
+        }else if(userId.isPresent()){
+            comments = commentRepository.findByUserId(userId.get());
+        }else if(postId.isPresent()){
+            comments = commentRepository.findByUserId(postId.get());
+        }else{
+            comments = commentRepository.findAll();
+        }
+
         List<CommentDto> commentsDtos = new ArrayList<>();
         CommentDto commentDto;
         for (Comment comment : comments) {
-            commentDto = new CommentDto();
-            commentDto.setId(comment.getId());
-            commentDto.setText(comment.getText());
-            commentDto.setUser_id(comment.getUser().getId());
-            commentDto.setPost_id(comment.getPost().getId());
+            commentDto = new CommentDto(comment);
             commentsDtos.add(commentDto);
         }
 
@@ -47,6 +53,11 @@ public class CommentService implements ICommentService {
 
     @Override
     public CommentDto getOneCommentById(Long id) {
+        Comment comment = this.commentRepository.findById(id).orElse(null);
+        if (comment != null) {
+            CommentDto commentDto = new CommentDto(comment);
+            return commentDto;
+        }
         return null;
     }
 
@@ -69,11 +80,17 @@ public class CommentService implements ICommentService {
 
     @Override
     public CommentDto updateOneComment(CommentDto commentDto) {
+        Comment comment = this.commentRepository.findById(commentDto.getId()).orElse(null);
+        if(comment!=null){
+            comment.setText(commentDto.getText());
+            this.commentRepository.save(comment);
+            return commentDto;
+        }
         return null;
     }
 
     @Override
     public void deleteOneCommentById(Long id) {
-
+        this.commentRepository.deleteById(id);
     }
 }
