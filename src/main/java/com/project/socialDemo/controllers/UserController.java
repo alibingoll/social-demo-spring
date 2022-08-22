@@ -3,11 +3,9 @@ package com.project.socialDemo.controllers;
 import com.project.socialDemo.abstracts.IUserService;
 import com.project.socialDemo.entities.User;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -31,16 +29,16 @@ public class UserController {
 
     @GetMapping("/{userId}")
     public User getOneUser(@PathVariable Long userId){
-         return this.userService.findById(userId);
+         return this.userService.getOneUserById(userId);
     }
 
     @PutMapping
     public User updateOneUser(@RequestBody User user) {
-        return this.userService.updateUser(user);
+        return this.userService.updateOneUser(user);
     }
 
     @DeleteMapping("/{userId}")
     public void deleteUser(@PathVariable Long userId){
-        this.userService.deleteUser(userId);
+        this.userService.deleteOneUserById(userId);
     }
 }

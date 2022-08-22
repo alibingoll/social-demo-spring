@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +20,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User findById(Long id) {
+    public User getOneUserById(Long id) {
         return this.userRepository.findById(id).orElse(null);
     }
 
@@ -31,8 +30,8 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User updateUser(User user) {
-        User updatedUser = findById(user.getId());
+    public User updateOneUser(User user) {
+        User updatedUser = getOneUserById(user.getId());
         System.out.println(user);
         System.out.println(updatedUser);
         if (updatedUser != null) {
@@ -43,7 +42,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void deleteUser(Long id) {
+    public void deleteOneUserById(Long id) {
         this.userRepository.deleteById(id);
     }
 }

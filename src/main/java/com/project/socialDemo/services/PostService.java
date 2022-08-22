@@ -31,6 +31,7 @@ public class PostService implements IPostService {
         Post post = this.postRepository.findById(id).orElse(null);
         if(post!=null){
             PostDto postDto = new PostDto();
+            postDto.setId(post.getId());
             postDto.setTitle(post.getTitle());
             postDto.setText(post.getText());
             postDto.setUserName(post.getUser().getUserName());
@@ -41,7 +42,7 @@ public class PostService implements IPostService {
 
     @Override
     public PostDto createPost(PostDto postDto) {
-        User user = this.userService.findById(postDto.getUser_id());
+        User user = this.userService.getOneUserById(postDto.getUser_id());
         if(user!=null){
             Post newPost = new Post();
             newPost.setText(postDto.getText());
