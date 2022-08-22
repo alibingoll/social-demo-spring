@@ -33,6 +33,8 @@ public class UserService implements IUserService {
     @Override
     public User updateUser(User user) {
         User updatedUser = findById(user.getId());
+        System.out.println(user);
+        System.out.println(updatedUser);
         if (updatedUser != null) {
             updatedUser = this.userRepository.save(user);
             return updatedUser;

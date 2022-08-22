@@ -22,7 +22,7 @@ public class Post {
     @JsonIgnore
     private User user;
 
-    private Long title;
+    private String title;
 
     @Lob
     @Column(columnDefinition = "text")
