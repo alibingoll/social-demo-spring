@@ -9,6 +9,5 @@ public interface ILikeService {
     List<LikeDto> getAllLikes(Optional<Long> userId, Optional<Long> postId);
     LikeDto getOneLikeById(Long id);
     LikeDto createLike(LikeDto likeDto);
-    LikeDto updateOneLike(LikeDto likeDto);
     void deleteOneLikeById(Long id);
 }

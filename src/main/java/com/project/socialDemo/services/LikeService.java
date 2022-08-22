@@ -54,6 +54,11 @@ public class LikeService implements ILikeService {
 
     @Override
     public LikeDto getOneLikeById(Long id) {
+        Like like = this.likeRepository.findById(id).orElse(null);
+        if(like!=null){
+            LikeDto likeDto = new LikeDto(like);
+            return likeDto;
+        }
         return null;
     }
 
@@ -69,11 +74,6 @@ public class LikeService implements ILikeService {
             return likeDto;
         }
 
-        return null;
-    }
-
-    @Override
-    public LikeDto updateOneLike(LikeDto likeDto) {
         return null;
     }
 

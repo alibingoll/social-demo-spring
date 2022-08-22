@@ -26,21 +26,18 @@ public class LikeController {
         return likes;
     }
 
-//    @PostMapping
-//    public CommentDto createComment(@RequestBody CommentDto commentDto) {
-//        CommentDto newPost = this.commentService.createComment(commentDto);
-//        return commentDto;
-//    }
-//
-//    @GetMapping("/{commentId}")
-//    public CommentDto getOneCommentById(@PathVariable Long commentId) {
-//        return this.commentService.getOneCommentById(commentId);
-//    }
-//
-//    @PutMapping
-//    public CommentDto updateOneComment(@RequestBody CommentDto commentDto) {
-//        return this.commentService.updateOneComment(commentDto);
-//    }
+    @PostMapping
+    public LikeDto createLike(@RequestBody LikeDto likeDto) {
+        LikeDto like = this.likeService.createLike(likeDto);
+        return likeDto;
+    }
+
+    @GetMapping("/{likeId}")
+    public LikeDto getOneLikeById(@PathVariable Long likeId) {
+        return this.likeService.getOneLikeById(likeId);
+    }
+
+
 //
 //    @DeleteMapping("/{commentId}")
 //    public void deleteOneCommentById(@PathVariable Long commentId) {
