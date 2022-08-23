@@ -23,8 +23,8 @@ public class PostController {
 
     @GetMapping
     @Transactional
-    public List<Post> getAllPosts(@RequestParam Optional<Long> userId){
-        List<Post> posts = this.postService.getAllPosts(userId);
+    public List<PostDto> getAllPosts(@RequestParam Optional<Long> userId){
+        List<PostDto> posts = this.postService.getAllPosts(userId);
         return posts;
     }
 

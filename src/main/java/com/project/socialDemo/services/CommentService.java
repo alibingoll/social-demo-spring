@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -40,15 +41,7 @@ public class CommentService implements ICommentService {
         }else{
             comments = commentRepository.findAll();
         }
-
-        List<CommentDto> commentsDtos = new ArrayList<>();
-        CommentDto commentDto;
-        for (Comment comment : comments) {
-            commentDto = new CommentDto(comment);
-            commentsDtos.add(commentDto);
-        }
-
-        return commentsDtos;
+        return comments.stream().map(c->new CommentDto(c)).collect(Collectors.toList());
     }
 
     @Override

@@ -9,8 +9,10 @@ import com.project.socialDemo.repos.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -20,10 +22,18 @@ public class PostService implements IPostService {
     private final IUserService userService;
 
     @Override
-    public List<Post> getAllPosts(Optional<Long> userId) {
-        if(userId.isPresent())
-            return this.postRepository.findByUserId(userId.get());
-        return postRepository.findAll();
+    public List<PostDto> getAllPosts(Optional<Long> userId) {
+        List <Post> posts;
+        List <PostDto> postDtos=new ArrayList<>();
+        if(userId.isPresent()){
+            posts = this.postRepository.findByUserId(userId.get());
+        }else{
+            posts = postRepository.findAll();
+        }
+        if (posts.size() > 0) {
+            return  posts.stream().map(p-> new PostDto(p)).collect(Collectors.toList());
+        }
+        return null;
     }
 
     @Override
