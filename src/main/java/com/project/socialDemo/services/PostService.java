@@ -24,14 +24,13 @@ public class PostService implements IPostService {
     @Override
     public List<PostDto> getAllPosts(Optional<Long> userId) {
         List <Post> posts;
-        List <PostDto> postDtos=new ArrayList<>();
         if(userId.isPresent()){
             posts = this.postRepository.findByUserId(userId.get());
         }else{
             posts = postRepository.findAll();
         }
         if (posts.size() > 0) {
-            return  posts.stream().map(p-> new PostDto(p)).collect(Collectors.toList());
+            return posts.stream().map(p-> new PostDto(p)).collect(Collectors.toList());
         }
         return null;
     }
@@ -52,13 +51,11 @@ public class PostService implements IPostService {
 
     @Override
     public PostDto createPost(PostDto postDto) {
-        User user = this.userService.getOneUserById(postDto.getUser_id());
+        User user = this.userService.getOneUserById(postDto.getUserId());
         if(user!=null){
-            Post newPost = new Post();
-            newPost.setText(postDto.getText());
-            newPost.setTitle(postDto.getTitle());
-            newPost.setUser(user);
-            this.postRepository.save(newPost);
+            Post post = new Post(postDto);
+            post.setUser(user);
+            this.postRepository.save(post);
             return postDto;
         }
         return null;

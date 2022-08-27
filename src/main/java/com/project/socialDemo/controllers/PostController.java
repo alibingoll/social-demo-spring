@@ -30,7 +30,6 @@ public class PostController {
 
     @PostMapping
     public PostDto createPost(@RequestBody PostDto postDto){
-        System.out.println(postDto);
         PostDto newPost = this.postService.createPost(postDto);
         return postDto;
     }
