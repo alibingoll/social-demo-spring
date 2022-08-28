@@ -13,8 +13,10 @@ public class CommentDto {
     private Long post_id;
     private String text;
 
+    private String userName;
     public CommentDto(Comment comment){
         this.user_id = comment.getUser().getId();
+        this.userName = comment.getUser().getUserName();
         this.post_id = comment.getPost().getId();
         this.text = comment.getText();
         this.id = comment.getId();

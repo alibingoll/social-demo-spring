@@ -37,7 +37,7 @@ public class CommentService implements ICommentService {
         }else if(userId.isPresent()){
             comments = commentRepository.findByUserId(userId.get());
         }else if(postId.isPresent()){
-            comments = commentRepository.findByUserId(postId.get());
+            comments = commentRepository.findByPostId(postId.get());
         }else{
             comments = commentRepository.findAll();
         }
