@@ -9,15 +9,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CommentDto {
     private Long id;
-    private Long user_id;
-    private Long post_id;
+    private Long userId;
+    private Long postId;
     private String text;
 
     private String userName;
     public CommentDto(Comment comment){
-        this.user_id = comment.getUser().getId();
+        this.userId = comment.getUser().getId();
         this.userName = comment.getUser().getUserName();
-        this.post_id = comment.getPost().getId();
+        this.postId = comment.getPost().getId();
         this.text = comment.getText();
         this.id = comment.getId();
     }

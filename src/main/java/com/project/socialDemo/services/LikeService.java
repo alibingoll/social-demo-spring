@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -36,18 +37,12 @@ public class LikeService implements ILikeService {
         }else if(userId.isPresent()){
             likes = this.likeRepository.findByUserId(userId.get());
         }else if(postId.isPresent()){
-            likes = this.likeRepository.findByUserId(postId.get());
+            likes = this.likeRepository.findByPostId(postId.get());
         }else{
             likes = this.likeRepository.findAll();
         }
         if(likes.size() != 0){
-            List<LikeDto> likeDtos = new ArrayList<>();
-            LikeDto likeDto;
-            for (Like like : likes) {
-                likeDto = new LikeDto(like);
-                likeDtos.add(likeDto);
-            }
-            return likeDtos;
+            return likes.stream().map(like->new LikeDto(like)).collect(Collectors.toList());
         }
         return null;
     }
@@ -64,8 +59,8 @@ public class LikeService implements ILikeService {
 
     @Override
     public LikeDto createLike(LikeDto likeDto) {
-        User user = this.userRepository.findById(likeDto.getUser_id()).orElse(null);
-        Post post = this.postRepository.findById(likeDto.getPost_id()).orElse(null);
+        User user = this.userRepository.findById(likeDto.getUserId()).orElse(null);
+        Post post = this.postRepository.findById(likeDto.getPostId()).orElse(null);
         if(user!=null && post !=null){
             Like like=new Like();
             like.setUser(user);
@@ -79,6 +74,6 @@ public class LikeService implements ILikeService {
 
     @Override
     public void deleteOneLikeById(Long id) {
-
+        this.likeRepository.deleteById(id);
     }
 }

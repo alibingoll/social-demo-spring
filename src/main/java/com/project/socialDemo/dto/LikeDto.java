@@ -8,12 +8,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LikeDto {
     private Long id;
-    private Long user_id;
-    private Long post_id;
+    private Long userId;
+    private Long postId;
 
     public LikeDto(Like like){
-        this.user_id = like.getUser().getId();
-        this.post_id = like.getPost().getId();
+        this.userId = like.getUser().getId();
+        this.postId = like.getPost().getId();
         this.id = like.getId();
     }
 }

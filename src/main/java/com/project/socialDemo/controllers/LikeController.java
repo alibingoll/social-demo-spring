@@ -38,9 +38,9 @@ public class LikeController {
     }
 
 
-//
-//    @DeleteMapping("/{commentId}")
-//    public void deleteOneCommentById(@PathVariable Long commentId) {
-//        this.commentService.deleteOneCommentById(commentId);
-//    }
+
+    @DeleteMapping("/{commentId}")
+    public void deleteOneLikeById(@PathVariable Long commentId) {
+        this.likeService.deleteOneLikeById(commentId);
+    }
 }

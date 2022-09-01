@@ -1,8 +1,11 @@
 package com.project.socialDemo.services;
 
+import com.project.socialDemo.abstracts.ILikeService;
 import com.project.socialDemo.abstracts.IPostService;
 import com.project.socialDemo.abstracts.IUserService;
+import com.project.socialDemo.dto.LikeDto;
 import com.project.socialDemo.dto.PostDto;
+import com.project.socialDemo.entities.Like;
 import com.project.socialDemo.entities.Post;
 import com.project.socialDemo.entities.User;
 import com.project.socialDemo.repos.PostRepository;
@@ -19,6 +22,7 @@ import java.util.stream.Collectors;
 public class PostService implements IPostService {
 
     private final PostRepository postRepository;
+    private final ILikeService likeService;
     private final IUserService userService;
 
     @Override
@@ -30,7 +34,12 @@ public class PostService implements IPostService {
             posts = postRepository.findAll();
         }
         if (posts.size() > 0) {
-            return posts.stream().map(p-> new PostDto(p)).collect(Collectors.toList());
+            List<PostDto> postDtos =  posts.stream().map(p -> {
+                        List<LikeDto> likes = likeService.getAllLikes(Optional.ofNullable(null),Optional.of(p.getId()));
+                        return new PostDto(p,likes);
+                    }
+            ).collect(Collectors.toList());
+            return postDtos;
         }
         return null;
     }

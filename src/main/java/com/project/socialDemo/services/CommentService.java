@@ -56,8 +56,8 @@ public class CommentService implements ICommentService {
 
     @Override
     public CommentDto createComment(CommentDto commentDto) {
-        User user = this.userService.getOneUserById(commentDto.getUser_id());
-        PostDto postDto = this.postService.getOnePostById(commentDto.getPost_id());
+        User user = this.userService.getOneUserById(commentDto.getUserId());
+        PostDto postDto = this.postService.getOnePostById(commentDto.getPostId());
         if (user != null && postDto != null) {
             Post post = this.postRepository.findById(postDto.getId()).orElse(null);
             Comment comment = new Comment();
